@@ -1,5 +1,5 @@
 import urllib2
-
+import time
 from bs4 import BeautifulSoup
 
 if __name__ == '__main__':
@@ -18,3 +18,8 @@ if __name__ == '__main__':
         if 'TrainSchedule' in node.attrs['href'] and len(node.attrs) > 1 and len(node.contents) > 0:
             print(node.attrs['href'])
             print(node.contents[0].strip())
+            time.sleep(5)
+            train_schedule = urllib2.urlopen(node.attrs['href'])
+            train_doc = train_schedule.read()
+            train_soup = BeautifulSoup(train_doc, 'lxml')
+            # print(train_soup.prettify())
